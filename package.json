@@ -1,0 +1,28 @@
+{
+  "name": "detect-change-actions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "local-action": "npx local-action . src/main.ts .env.example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hodfords-solutions/detect-change-actions.git"
+  },
+  "private": true,
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  },
+  "devDependencies": {
+    "@github/local-action": "^2.2.0",
+    "@hodfords/nestjs-prettier-config": "^10.0.1",
+    "@types/node": "^22.10.1",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2"
+  }
+}

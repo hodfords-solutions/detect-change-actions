@@ -1,0 +1,29 @@
+name: 'Detect Package Changes For Turbo Mono Repo'
+description: 'Detects changes in packages for Turbo Mono Repo'
+author: 'Hodfords'
+
+branding:
+  icon: 'heart'
+  color: 'black'
+
+inputs:
+  changeFiles:
+    description: 'Change files'
+    required: true
+  apps:
+    description: 'Apps paths, split by space'
+    required: true
+  dependencies:
+    description: 'Dependencies paths, split by space'
+    required: true
+  workspace:
+    description: 'Workspace path'
+    required: true
+
+outputs:
+  changedApps:
+    description: 'List app that have changes'
+
+runs:
+  using: node20
+  main: dist/index.js
