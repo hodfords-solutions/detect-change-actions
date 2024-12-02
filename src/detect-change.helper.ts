@@ -1,9 +1,10 @@
 import { PackageTree } from './type';
+import path from 'node:path';
 
 export function detectChange(packages: PackageTree, changeDirs: string[]) {
     for (const key in packages) {
         for (const pkg of packages[key]) {
-            pkg.isChanged = changeDirs.some((dir) => dir == pkg.path);
+            pkg.isChanged = changeDirs.some((dir) => path.resolve(dir) == path.resolve(pkg.path));
         }
     }
     deepDetectChange(packages);
