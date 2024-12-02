@@ -10,6 +10,9 @@ inputs:
   changeFiles:
     description: 'Change files'
     required: true
+  includePackage:
+    description: 'Include package'
+    required: false
   apps:
     description: 'Apps paths, split by space'
     required: true

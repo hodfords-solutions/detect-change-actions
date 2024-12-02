@@ -15,6 +15,7 @@ export type Config = {
     apps: string[];
     dependencies: string[];
     workspacePath: string;
+    includePackage?: string;
 };
 
 export type PackageTree = {
