@@ -16,7 +16,7 @@ inputs:
   dependencies:
     description: 'Dependencies paths, split by space'
     required: true
-  workspace:
+  workspacePath:
     description: 'Workspace path'
     required: true
 
