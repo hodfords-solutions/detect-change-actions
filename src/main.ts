@@ -18,6 +18,7 @@ export async function run(): Promise<void> {
         './examples/packages/pkg1'
     ];
 
+    console.log(core.getInput('changeFiles'));
     detectChange(packages, changeDirs);
 
     const output = getOutput(config, packages);
