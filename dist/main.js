@@ -55,11 +55,8 @@ function run() {
             workspacePath: core.getInput('workspacePath')
         };
         let packages = (0, package_helper_1.getPackages)(config);
-        const changeDirs = [
-            // './examples/apps/app1',
-            './examples/libs/lib1',
-            './examples/packages/pkg1'
-        ];
+        const changeDirs = core.getInput('changeFiles').split(' ');
+        core.debug(core.getInput('changeFiles'));
         (0, detect_change_helper_1.detectChange)(packages, changeDirs);
         const output = (0, output_1.getOutput)(config, packages);
         core.setOutput('changedApps', JSON.stringify(output.changedApp));
