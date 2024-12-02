@@ -12,13 +12,9 @@ export async function run(): Promise<void> {
     };
 
     let packages: PackageTree = getPackages(config);
-    const changeDirs = [
-        // './examples/apps/app1',
-        './examples/libs/lib1',
-        './examples/packages/pkg1'
-    ];
+    const changeDirs = core.getInput('changeFiles').split(' ');
 
-    console.log(core.getInput('changeFiles'));
+    core.debug(core.getInput('changeFiles'));
     detectChange(packages, changeDirs);
 
     const output = getOutput(config, packages);
