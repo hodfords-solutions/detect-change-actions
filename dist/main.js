@@ -52,12 +52,16 @@ function run() {
         let config = {
             apps: core.getInput('apps').split(' '),
             dependencies: core.getInput('dependencies').split(' '),
-            workspacePath: core.getInput('workspacePath')
+            workspacePath: core.getInput('workspacePath'),
+            includePackage: core.getInput('includePackage')
         };
         let packages = (0, package_helper_1.getPackages)(config);
         const changeDirs = core.getInput('changeFiles').split(' ');
         core.debug('Change files:' + core.getInput('changeFiles'));
         (0, detect_change_helper_1.detectChange)(packages, changeDirs);
+        if (config.includePackage) {
+            (0, detect_change_helper_1.markChanged)(packages, config.includePackage);
+        }
         const output = (0, output_1.getOutput)(config, packages);
         core.setOutput('changedApps', JSON.stringify(output.changedApp));
         core.setOutput('changedDependencies', JSON.stringify(output.changedDependencies));

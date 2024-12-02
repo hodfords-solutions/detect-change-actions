@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.detectChange = detectChange;
+exports.markChanged = markChanged;
 exports.deepDetectChange = deepDetectChange;
 exports.checkDependencyChange = checkDependencyChange;
 const node_path_1 = __importDefault(require("node:path"));
@@ -14,6 +15,15 @@ function detectChange(packages, changeDirs) {
         }
     }
     deepDetectChange(packages);
+}
+function markChanged(packages, name) {
+    for (const key in packages) {
+        for (const pkg of packages[key]) {
+            if (pkg.name === name || name === 'all') {
+                pkg.isChanged = true;
+            }
+        }
+    }
 }
 function deepDetectChange(packages) {
     for (const key in packages) {

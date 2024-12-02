@@ -10,6 +10,16 @@ export function detectChange(packages: PackageTree, changeDirs: string[]) {
     deepDetectChange(packages);
 }
 
+export function markChanged(packages: PackageTree, name: string): void {
+    for (const key in packages) {
+        for (const pkg of packages[key]) {
+            if (pkg.name === name || name === 'all') {
+                pkg.isChanged = true;
+            }
+        }
+    }
+}
+
 export function deepDetectChange(packages: PackageTree): void {
     for (const key in packages) {
         for (const pkg of packages[key]) {
