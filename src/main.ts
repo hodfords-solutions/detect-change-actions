@@ -3,6 +3,7 @@ import { getPackages } from './package.helper';
 import { detectChange } from './detect-change.helper';
 import * as core from '@actions/core';
 import { getOutput } from './output';
+import path from 'node:path';
 
 export async function run(): Promise<void> {
     let config = {
@@ -14,7 +15,7 @@ export async function run(): Promise<void> {
     let packages: PackageTree = getPackages(config);
     const changeDirs = core.getInput('changeFiles').split(' ');
 
-    core.debug(core.getInput('changeFiles'));
+    core.debug('Change files:' + core.getInput('changeFiles'));
     detectChange(packages, changeDirs);
 
     const output = getOutput(config, packages);

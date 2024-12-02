@@ -56,7 +56,7 @@ function run() {
         };
         let packages = (0, package_helper_1.getPackages)(config);
         const changeDirs = core.getInput('changeFiles').split(' ');
-        core.debug(core.getInput('changeFiles'));
+        core.debug('Change files:' + core.getInput('changeFiles'));
         (0, detect_change_helper_1.detectChange)(packages, changeDirs);
         const output = (0, output_1.getOutput)(config, packages);
         core.setOutput('changedApps', JSON.stringify(output.changedApp));
