@@ -14,7 +14,7 @@ export function getAllPackageInFolder(folderPath: string): Package[] {
         const localDependencies: string[] = [];
 
         Object.keys(dependencies).forEach((name) => {
-            if (dependencies[name] === 'workspace:') {
+            if (dependencies[name] === 'workspace:*') {
                 localDependencies.push(name);
             }
         });
