@@ -17,7 +17,7 @@ function getAllPackageInFolder(folderPath) {
         const dependencies = Object.assign(Object.assign({}, packageJson.dependencies), packageJson.devDependencies);
         const localDependencies = [];
         Object.keys(dependencies).forEach((name) => {
-            if (dependencies[name] === 'workspace:') {
+            if (dependencies[name].startsWith('workspace:')) {
                 localDependencies.push(name);
             }
         });
