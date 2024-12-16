@@ -22,9 +22,17 @@ inputs:
   workspacePath:
     description: 'Workspace path'
     required: true
+  yamlConfig:
+    description: 'Yaml config path'
+    required: false
+  currentBranch:
+    description: 'Current branch'
+    required: false
 
 outputs:
   changedApps:
+    description: 'List app that have changes'
+  changedAppsFromYaml:
     description: 'List app that have changes'
 
 runs:
