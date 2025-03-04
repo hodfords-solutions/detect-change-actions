@@ -50,9 +50,10 @@ const output_1 = require("./output");
 const yaml_helper_1 = require("./yaml.helper");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         let config = {
             apps: core.getInput('apps').split(' '),
-            dependencies: core.getInput('dependencies').split(' '),
+            dependencies: ((_a = core.getInput('dependencies')) === null || _a === void 0 ? void 0 : _a.split(' ')) || [],
             workspacePath: core.getInput('workspacePath'),
             includePackage: core.getInput('includePackage'),
             yamlConfig: core.getInput('yamlConfig'),
