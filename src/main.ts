@@ -8,7 +8,7 @@ import { parseYamlConfig } from './yaml.helper';
 export async function run(): Promise<void> {
     let config = {
         apps: core.getInput('apps').split(' '),
-        dependencies: core.getInput('dependencies')?.split(' ') || [],
+        dependencies: core.getInput('dependencies') ? core.getInput('dependencies').split(' ') : [],
         workspacePath: core.getInput('workspacePath'),
         includePackage: core.getInput('includePackage'),
         yamlConfig: core.getInput('yamlConfig'),
