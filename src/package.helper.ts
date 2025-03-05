@@ -7,6 +7,7 @@ export function readPackageJson(filePath: string): PackageJsonDetail {
 }
 
 export function getAllPackageInFolder(folderPath: string): Package[] {
+    console.log('Get all package in folder:', folderPath);
     const projects = readdirSync(folderPath);
     return projects.map((project) => {
         const packageJson = readPackageJson(`${folderPath}/${project}/package.json`);
