@@ -48,6 +48,7 @@ const detect_change_helper_1 = require("./detect-change.helper");
 const core = __importStar(require("@actions/core"));
 const output_1 = require("./output");
 const yaml_helper_1 = require("./yaml.helper");
+const branch_helper_1 = require("./branch.helper");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         let config = {
@@ -56,7 +57,8 @@ function run() {
             workspacePath: core.getInput('workspacePath'),
             includePackage: core.getInput('includePackage'),
             yamlConfig: core.getInput('yamlConfig'),
-            currentBranch: core.getInput('currentBranch')
+            currentBranch: core.getInput('currentBranch'),
+            mapBranches: core.getInput('mapBranches')
         };
         let packages = (0, package_helper_1.getPackages)(config);
         const changeDirs = core.getInput('changeFiles').split(' ');
@@ -69,6 +71,7 @@ function run() {
         if (config.yamlConfig) {
             core.setOutput('changedAppsFromYaml', JSON.stringify((0, yaml_helper_1.parseYamlConfig)(config.yamlConfig, config.currentBranch, output.changedApp)));
         }
+        (0, branch_helper_1.addEnvironmentName)(config, output.changedApp);
         core.setOutput('changedApps', JSON.stringify(output.changedApp));
         core.setOutput('changedDependencies', JSON.stringify(output.changedDependencies));
     });

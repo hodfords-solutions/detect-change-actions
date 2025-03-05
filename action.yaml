@@ -28,6 +28,9 @@ inputs:
   currentBranch:
     description: 'Current branch'
     required: false
+  mapBranches:
+    description: 'Map branches with environments, example: develop:dev staging:uat master:prod'
+    required: false
 
 outputs:
   changedApps:

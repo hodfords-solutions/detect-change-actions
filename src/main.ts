@@ -4,6 +4,7 @@ import { detectChange, markChanged } from './detect-change.helper';
 import * as core from '@actions/core';
 import { getOutput } from './output';
 import { parseYamlConfig } from './yaml.helper';
+import { addEnvironmentName } from './branch.helper';
 
 export async function run(): Promise<void> {
     let config = {
@@ -12,7 +13,8 @@ export async function run(): Promise<void> {
         workspacePath: core.getInput('workspacePath'),
         includePackage: core.getInput('includePackage'),
         yamlConfig: core.getInput('yamlConfig'),
-        currentBranch: core.getInput('currentBranch')
+        currentBranch: core.getInput('currentBranch'),
+        mapBranches: core.getInput('mapBranches')
     };
 
     let packages: PackageTree = getPackages(config);
@@ -31,6 +33,7 @@ export async function run(): Promise<void> {
             parseYamlConfig(config.yamlConfig, config.currentBranch, output.changedApp))
         );
     }
+    addEnvironmentName(config, output.changedApp);
     core.setOutput('changedApps', JSON.stringify(output.changedApp));
     core.setOutput('changedDependencies', JSON.stringify(output.changedDependencies));
 }

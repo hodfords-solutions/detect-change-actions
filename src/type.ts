@@ -9,6 +9,7 @@ export type Package = {
     path: string;
     dependencies: string[];
     isChanged?: boolean;
+    environment?: string;
 };
 
 export type Config = {
