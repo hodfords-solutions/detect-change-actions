@@ -53,6 +53,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         let config = {
             apps: core.getInput('apps').split(' '),
+            getAppInRoot: core.getInput('getAppInRoot') === 'true',
             dependencies: core.getInput('dependencies') ? core.getInput('dependencies').split(' ') : [],
             workspacePath: core.getInput('workspacePath'),
             includePackage: core.getInput('includePackage'),

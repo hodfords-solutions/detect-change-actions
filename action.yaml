@@ -13,9 +13,14 @@ inputs:
   includePackage:
     description: 'Include package'
     required: false
+  getAppInRoot:
+    description: 'Include package'
+    required: false
+    default: 'false'
   apps:
     description: 'Apps paths, split by space'
     required: true
+
   dependencies:
     description: 'Dependencies paths, split by space'
     required: false

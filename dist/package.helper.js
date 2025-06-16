@@ -10,11 +10,17 @@ function readPackageJson(filePath) {
     const content = (0, node_fs_1.readFileSync)(filePath, 'utf-8');
     return JSON.parse(content);
 }
-function getAllPackageInFolder(folderPath) {
+function getAllPackageInFolder(folderPath, getAppInRoot = false) {
     console.log('Get all package in folder:', folderPath);
-    const projects = (0, node_fs_1.readdirSync)(folderPath);
-    return projects.map((project) => {
-        const packageJson = readPackageJson(`${folderPath}/${project}/package.json`);
+    let projectPaths = [];
+    if (getAppInRoot) {
+        projectPaths = [folderPath];
+    }
+    else {
+        projectPaths = (0, node_fs_1.readdirSync)(folderPath).map((project) => `${folderPath}/${project}`);
+    }
+    return projectPaths.map((projectPath) => {
+        const packageJson = readPackageJson(`${projectPath}/package.json`);
         const dependencies = Object.assign(Object.assign({}, packageJson.dependencies), packageJson.devDependencies);
         const localDependencies = [];
         Object.keys(dependencies).forEach((name) => {
@@ -24,7 +30,7 @@ function getAllPackageInFolder(folderPath) {
         });
         return {
             name: packageJson.name,
-            path: `${folderPath}/${project}`,
+            path: projectPath,
             dependencies: localDependencies
         };
     });
@@ -32,7 +38,7 @@ function getAllPackageInFolder(folderPath) {
 function getPackages(config) {
     let packages = {};
     for (const app of config.apps) {
-        packages[app] = getAllPackageInFolder(`${config.workspacePath}/${app}`);
+        packages[app] = getAllPackageInFolder(`${config.workspacePath}/${app}`, config.getAppInRoot);
     }
     for (const dependency of config.dependencies) {
         packages[dependency] = getAllPackageInFolder(`${config.workspacePath}/${dependency}`);

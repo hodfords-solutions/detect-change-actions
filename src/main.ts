@@ -9,6 +9,7 @@ import { addEnvironmentName } from './branch.helper';
 export async function run(): Promise<void> {
     let config = {
         apps: core.getInput('apps').split(' '),
+        getAppInRoot: core.getInput('getAppInRoot') === 'true',
         dependencies: core.getInput('dependencies') ? core.getInput('dependencies').split(' ') : [],
         workspacePath: core.getInput('workspacePath'),
         includePackage: core.getInput('includePackage'),

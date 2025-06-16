@@ -17,6 +17,7 @@ export type Config = {
     dependencies: string[];
     workspacePath: string;
     includePackage?: string;
+    getAppInRoot?: boolean;
 };
 
 export type PackageTree = {

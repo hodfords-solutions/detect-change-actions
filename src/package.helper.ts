@@ -6,11 +6,16 @@ export function readPackageJson(filePath: string): PackageJsonDetail {
     return JSON.parse(content);
 }
 
-export function getAllPackageInFolder(folderPath: string): Package[] {
+export function getAllPackageInFolder(folderPath: string, getAppInRoot: boolean = false): Package[] {
     console.log('Get all package in folder:', folderPath);
-    const projects = readdirSync(folderPath);
-    return projects.map((project) => {
-        const packageJson = readPackageJson(`${folderPath}/${project}/package.json`);
+    let projectPaths = [];
+    if (getAppInRoot) {
+        projectPaths = [folderPath];
+    } else {
+        projectPaths = readdirSync(folderPath).map((project) => `${folderPath}/${project}`);
+    }
+    return projectPaths.map((projectPath) => {
+        const packageJson = readPackageJson(`${projectPath}/package.json`);
         const dependencies = { ...packageJson.dependencies, ...packageJson.devDependencies };
         const localDependencies: string[] = [];
 
@@ -22,7 +27,7 @@ export function getAllPackageInFolder(folderPath: string): Package[] {
 
         return {
             name: packageJson.name,
-            path: `${folderPath}/${project}`,
+            path: projectPath,
             dependencies: localDependencies
         };
     });
@@ -31,7 +36,7 @@ export function getAllPackageInFolder(folderPath: string): Package[] {
 export function getPackages(config: Config): PackageTree {
     let packages: any = {};
     for (const app of config.apps) {
-        packages[app] = getAllPackageInFolder(`${config.workspacePath}/${app}`);
+        packages[app] = getAllPackageInFolder(`${config.workspacePath}/${app}`, config.getAppInRoot);
     }
     for (const dependency of config.dependencies) {
         packages[dependency] = getAllPackageInFolder(`${config.workspacePath}/${dependency}`);
